@@ -5,6 +5,12 @@ import { Flex, Text, Button } from "@chakra-ui/react";
 const menuItems = [
   { title: "Dashboard", link: "/" },
   { title: "Instuições", link: "/instituicoes" },
+  {title: "Cidades",link :"/cidade"},
+  {title:"Pessoas", link:"/pessoas"},
+  {title:"Progamas de Ensino", link:"/prgEnsino"},
+  {title:"Equipamentos",link:"/equipamento"},
+  {title: "Solicitações de Cadastro", link:"/solicitacao-cadastro"}
+
 ];
 
 const Navbar = () => {

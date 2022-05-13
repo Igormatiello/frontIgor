@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 
 
-import {mensagemErro} from ''
+//import {mensagemErro} from ''
 
 
 class EditarPerfil extends React.Component {
@@ -36,7 +36,7 @@ class EditarPerfil extends React.Component {
             this.context.iniciarSessao(response.data)
             this.props.history.push('/home')
         }).catch( erro => {
-           mensagemErro(erro.response.data)
+       //    mensagemErro(erro.response.data)
         })
     }
      onSubmit = (data) => {

@@ -12,13 +12,12 @@ import "service/axiosConfig";
 
 const Dashboard = lazy(() => import("./Dashboard"));
 const Institutions = lazy(() => import("./Institutions"));
-const NovoInstituicao = lazy(() => import("../instituicao/NovoInstituicao"));
-const NovaCidade= lazy( ()=>import ("../cidades/NovoCidade")  );
-const NovoEquipamento=lazy(()=>import  ("../equipamento/EquipamentoNovo"));
-const NovoPesssoa=lazy (( ) =>import ("../pessoa/novoPessoa")  );
-//const perfil=lazy(()=>import ("../perfil/EditarPerfil") );
-const PrgNovo= lazy(()=>import ("../progEnsino/ProgramaEnsinoNovo"));
-const VinculoNovo =lazy(()=>import ("../vinculos/VinculoNovo"))
+const Cidade= lazy( ()=>import ("./Cidades") );
+const Equipamento=lazy(()=>import  ("./Equipamento"));
+const Pessoas=lazy (( ) =>import ("./Pessoa")  );
+const ProgEnsino= lazy(()=>import ("./ProgEnsino"));
+
+const SolicitaCadastro= lazy(()=>import ("./SolicitacaoCadastro") )
 
 const Admin = () => {
   return (
@@ -28,16 +27,14 @@ const Admin = () => {
 
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="*" element={<Dashboard />} />
           <Route path="/instituicoes" element={<Institutions />} />
-          <Route path="/instituicao/novo" element={<NovoInstituicao />} />
-          <Route path="/cidade/novo" element={<NovaCidade/>} /> 
-          <Route path="/equipamento/novo" element={<NovoEquipamento/>} />
-          <Route path="/pessoa/novo" element={<NovoPesssoa/>}/>
-          <Route path= "/perfil" element={<perfil/>}/>
-          <Route path= "/prgEnsino/novo" element={<PrgNovo/>}/>
-          <Route path="/vinculo/novo" element={<VinculoNovo/>}/>
-         
-
+          <Route path="/cidade" element={<Cidade/>} /> 
+          <Route path="/equipamento" element={<Equipamento/>} />
+          <Route path="/pesssoas" element={<Pessoas/>}/>
+          <Route path= "/prgEnsino" element={<ProgEnsino/>}/>
+     
+          <Route path="/solicitacao-cadastro" element={<SolicitaCadastro/>}/>
           
           
         </Routes>
