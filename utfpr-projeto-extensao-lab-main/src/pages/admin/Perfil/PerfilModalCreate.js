@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
     Flex,
     Input,
@@ -12,46 +10,61 @@ import {
     Button,
     Grid,
     GridItem,
-} from "@chakra-ui/react";
-
-
-//import {mensagemErro} from ''
-
-
-class EditarPerfil extends React.Component {
-    
-    
-
-     state ={
-
-        email:'',
-        senha:''
-
-    }
-    entrar = () => {
-        this.service.autenticar({
-            email: this.state.email,
-            senha: this.state.senha
-        }).then( response => {
-            this.context.iniciarSessao(response.data)
-            this.props.history.push('/home')
-        }).catch( erro => {
-       //    mensagemErro(erro.response.data)
-        })
-    }
-     onSubmit = (data) => {
-        localStorage.setItem("USER", data);
-
-        window.location.reload();
+    useToast
+  } from "@chakra-ui/react";
+  
+  import FormFieldCities from "components/FormFieldCities";
+  import {  Controller } from "react-hook-form";
+  import { useForm } from "react-hook-form";
+  import { useQueryClient } from "react-query";
+  
+  import { useMutationEditPessoa } from "service/pessoa"; 
+  
+  const PerfilModalCreate = ({ isOpen, onClose }) => {
+    const {
+      handleSubmit,
+    } = useForm();
+  
+    const queryClient = useQueryClient();
+  
+    const toast = useToast();
+  
+    const { mutate, isLoading } = useMutationEditPessoa({
+      onError: ({ response }) => {
+        const message = response.data.message;
+  
+        toast({
+          title: message,
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+  
+        return;
+      },
+      onSuccess: async () => {
+        toast({
+          title: "Pessoa editada com sucesso!",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+  
+        await queryClient.refetchQueries(["queryListPessoa"]);
+  
+        return;
+      },
+    });
+  
+    const onSubmit = async (data) => {
+      mutate(data);
     };
-
-
-    
-render(){
+  
     return (
-        <Flex height="100vh" width="100%" align="center" justify="center">
-            <form onSubmit={this.onSubmit}>
-
+     
+       <Flex 
+        isOpen={isOpen} onClose={onClose} height="100vh" width="100%" align="center" justify="center">
+            <form  onSubmit={handleSubmit(onSubmit)}>
 
                 <Flex direction="column">
                     <Text
@@ -60,7 +73,7 @@ render(){
                         mb="50px"
                         textDecor="underline"
                     >
-                        Cadastro de Pessoas
+                        Editar Perfil
                     </Text>
 
 
@@ -80,11 +93,8 @@ render(){
                                 placeholder="Digite o Nome" />
 
                         </FormControl>
-
                     </GridItem>
-
-                    <GridItem>
-
+                   <GridItem>
 
                         <FormControl >
                             <FormLabel htmlFor="email">Email*</FormLabel>
@@ -101,7 +111,6 @@ render(){
 
                     </GridItem>
 
-
                 </Grid>
 
                 <Grid>
@@ -112,7 +121,6 @@ render(){
                         <Select placeholder='Selecione...'>
                             <option value='fisica'>Física</option>
                             <option value='juridica'>Jurídica</option>
-
 
                         </Select>
                     </GridItem>
@@ -128,8 +136,7 @@ render(){
                                 id="exampleInputDocumento"
                                 aria-describedby="emailHelp"
                                 />
-
-                            
+                          
                         </FormControl>
                     </GridItem>
                 </Grid>
@@ -265,35 +272,39 @@ render(){
 
                 <GridItem>
 
-                <Center bg='white' h='100px' color='black'>
-                    Cidade*
-                </Center>
-                <Select placeholder='Selecione...'>
-                    <option value='cabixi_RO'>Cabixi, RO</option>
-                    <option value='cacoal_RO'>Cacoal, RO</option>
-                    <option value='corumbiara_RO'>Corumbiara, RO</option>
-
-
-                </Select>
-
+                <Flex mt="30px">
+                  <Controller
+                    rules={{ required: true }}
+                    render={({ field: { ref, ...rest } }) => (
+                      <FormFieldCities
+                        id="cidade"
+                        label="Cidade da Pessoa"
+                        errorMessage="A cidade é obrigatória!"
+                        {...rest}
+                      />
+                    )}
+                    name="cidade"
+                  />
+                </Flex>
                 </GridItem>
                 </Grid>
                 <ButtonGroup variant='outline' spacing='6'>
-                    <Button colorScheme='blue'>Save</Button>
-                    <Button>Cancel</Button>
+                    <Button colorScheme='blue'>Save
+                    isLoading={isLoading}
+                  isDisabled={isLoading}
+                    </Button>
+                    <Button>Cancel
+                    onClick={onClose}
+                  isDisabled={isLoading}
+
+                    </Button>
                 </ButtonGroup>
 
 
             </form>
         </Flex>
-
-)
-
-
-}
-
-
-}
-
-export default EditarPerfil;
-
+     
+    );
+  };
+  
+  export default PerfilModalCreate;

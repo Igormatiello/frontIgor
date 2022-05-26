@@ -11,12 +11,13 @@ import {
     FormErrorMessage,
     useToast,
     Flex,
-    Input
+    Input,
+    Select
 } from "@chakra-ui/react";
 
-import FormFieldCities from "components/FormFieldCities";
 
-import { useForm, Controller } from "react-hook-form";
+
+import { useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
 
 import { useMutationCreateCidade } from "service/cidade"
@@ -26,7 +27,6 @@ const CidadesModalCreate = ({ isOpen, onClose }) => {
     const {
         register,
         handleSubmit,
-        control,
         formState: { errors },
     } = useForm();
 
@@ -93,22 +93,57 @@ const CidadesModalCreate = ({ isOpen, onClose }) => {
 
 
 
-                            <Flex mt="30px">
-                                <Controller
-                                    rules={{ required: true }}
-                                    render={({ field: { ref, ...rest } }) => (
-                                        <FormFieldCities //criar formFieldEstados
-                                            errors={errors}
-                                            id="uf"
-                                            label="UF"
-                                            errorMessage="O UF é obrigatória!"
-                                            {...rest}
-                                        />
-                                    )}
-                                    control={control}
-                                    name="uf"
-                                />
-                            </Flex>
+
+
+                         <FormControl isInvalid={errors.uf} mt="30px">
+                <FormLabel htmlFor="uf">
+                  UF:
+                </FormLabel>
+
+                <Select
+                  id="uf"
+                  placeholder="Selecione Estado"
+                  {...register("uf", {
+                    
+                  })}
+                >
+                  <option value="acre">Acre</option>
+                  <option value="alagoas">Alagoas</option>
+                  <option value="amapa">Amapá</option>
+                  <option value="amazonas">Amazonas</option>
+                  <option value="bahia">Bahia</option>
+                  <option value="ceara">Ceará</option>
+                  <option value="distritoFederal">Distrito Federal</option>
+                  <option value="espiritoSanto">Espírito Santo</option>
+                  <option value="goias">Góias</option>
+                  <option value="maranhao">Maranhão</option>
+                  <option value="matoGrosso">Mato Grosso</option>
+                  <option value="matoGrossoDoSul">Mato Grosso do Sul</option>
+                  <option value="minasGerais">Minas Gerais</option>
+                  <option value="para">Pará</option>
+                  <option value="paraiba">Paraíba</option>
+                  <option value="pernambuco">Pernambuco</option>
+                  <option value="piaui">Piauí</option>
+                  <option value="rioDeJaneiro">Rio de Janeiro</option>
+                  <option value="rioGrandeDoNorte">Rio Grande do Norte</option>
+                  <option value="rioGrandeDoSul">Rio Grande do Sul</option>
+                  <option value="rondonia">Rondônia</option>
+                  <option value="roraima">Roraima</option>
+                  <option value="santaCatarina">Santa Catarina</option>
+                  <option value="saoPaulo">São Paulo</option>
+                  <option value="sergipe">Sergipe</option>
+                  <option value="tocantins">Tocantins</option>
+                  
+
+                </Select>
+
+                {errors.uf && (
+                  <FormErrorMessage>
+                    {errors.uf.message}
+                  </FormErrorMessage>
+                )}
+
+              </FormControl>
 
                             <Flex justify="space-between" mt="30px">
                                 <Button

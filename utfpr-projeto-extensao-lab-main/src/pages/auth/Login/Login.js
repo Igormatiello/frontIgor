@@ -7,6 +7,7 @@ import {
   Text,
   FormErrorMessage,
   useToast,
+  Link
 } from "@chakra-ui/react";
 
 import { useForm } from "react-hook-form";
@@ -95,6 +96,17 @@ const Login = () => {
           >
             Login
           </Button>
+          
+          <Flex>
+
+          <Link href="/cadastro">
+            <Button variant="ghost"></Button>
+          </Link>
+          Cadastre-se
+      </Flex>
+
+        
+
         </Flex>
       </form>
     </Flex>

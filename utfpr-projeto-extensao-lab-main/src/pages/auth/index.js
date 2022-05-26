@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import LoadingBox from "components/LoadingBox";
 
 const Login = lazy(() => import("./Login"));
+const Cadastro = lazy(() => import("./Cadastro"));
 
 const Auth = () => {
   return (
@@ -13,6 +14,7 @@ const Auth = () => {
         <Route path="/" element={<Login />}>
           <Route path="login" element={<Login />} />
           <Route path="*" element={<Login />} />
+          <Route path="cadastro" element={<Cadastro />} />
         </Route>
       </Routes>
     </Suspense>

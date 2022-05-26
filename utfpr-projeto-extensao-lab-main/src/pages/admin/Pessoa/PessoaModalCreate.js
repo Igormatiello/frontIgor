@@ -20,7 +20,7 @@ import FormFieldCities from "components/FormFieldCities";
 import { useForm, Controller } from "react-hook-form";
 import { useQueryClient } from "react-query";
 
-import { useMutationCreateInstitution } from "service/institutions";
+import { useMutationCreatePessoa } from "service/pessoa";
 
 const PesssoaModalCreate = ({ isOpen, onClose }) => {
   const {
@@ -34,7 +34,7 @@ const PesssoaModalCreate = ({ isOpen, onClose }) => {
 
   const toast = useToast();
 
-  const { mutate, isLoading } = useMutationCreateInstitution({
+  const { mutate, isLoading } = useMutationCreatePessoa({
     onError: ({ response }) => {
       const message = response.data.message;
 

@@ -16,8 +16,8 @@ const Cidade= lazy( ()=>import ("./Cidades") );
 const Equipamento=lazy(()=>import  ("./Equipamento"));
 const Pessoas=lazy (( ) =>import ("./Pessoa")  );
 const ProgEnsino= lazy(()=>import ("./ProgEnsino"));
-
-const SolicitaCadastro= lazy(()=>import ("./SolicitacaoCadastro") )
+const Perfil=lazy(()=> import("./Perfil") );
+const SolicitaCadastro= lazy(()=>import ("./SolicitacaoCadastro") );
 
 const Admin = () => {
   return (
@@ -33,7 +33,7 @@ const Admin = () => {
           <Route path="/equipamento" element={<Equipamento/>} />
           <Route path="/pesssoas" element={<Pessoas/>}/>
           <Route path= "/prgEnsino" element={<ProgEnsino/>}/>
-     
+          <Route path="/perfil" element={<Perfil/>}/>
           <Route path="/solicitacao-cadastro" element={<SolicitaCadastro/>}/>
           
           
